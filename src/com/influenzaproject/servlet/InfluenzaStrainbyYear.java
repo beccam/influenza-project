@@ -32,6 +32,9 @@ public class InfluenzaStrainbyYear extends HttpServlet {
 		String strainYear = request.getParameter("strain-year");
 		PrintWriter out = response.getWriter();
 		out.write("Strain year " + strainYear);
+		
+		String subtype = request.getParameter("Subtype");
+		out.write("Subtype " + subtype);
 	}
 
 }

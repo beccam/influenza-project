@@ -32,6 +32,10 @@ public class InfluenzaStatebySubtype extends HttpServlet {
 		String subtype = request.getParameter("Subtype");
 		PrintWriter out = response.getWriter();
 		out.write("Subtype " + subtype);
+		
+		if ("state" != null) {
+		String state = request.getParameter("state");
+		out.write("State " + state);}
 	}
 
 }
