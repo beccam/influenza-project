@@ -9,6 +9,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.datastax.driver.core.Cluster;
+import com.datastax.driver.core.ResultSet;
+import com.datastax.driver.core.Row;
+import com.datastax.driver.core.Session;
+
 /**
  * Servlet implementation class InfluenzaStrainbyYear
  */
@@ -29,12 +34,29 @@ public class InfluenzaStrainbyYear extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		Cluster cluster = Cluster.builder().addContactPoint("localhost").build();
+
+		Session session = cluster.connect();
+		
 		String strainYear = request.getParameter("strain-year");
 		PrintWriter out = response.getWriter();
 		out.write("Strain year " + strainYear);
 		
 		String subtype = request.getParameter("Subtype");
 		out.write("Subtype " + subtype);
+		
+        String queryText = "SELECT date, state FROM influenza.year_subtype WHERE year = '" + strainYear + "'" + " AND subtype ='" + subtype +"'";
+		
+		ResultSet results = session.execute(queryText);
+		
+		for (Row row : results) {		
+			  String date = row.getDate("date").toString();
+			  String state = row.getString("state");
+			  out.println("<tr>");
+			  out.println("<td>" + date + "</td>");
+			  out.println("<td>" + state + "</td>");
+			  out.println("</tr>");
+			}
 	}
 
 }
