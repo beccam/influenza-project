@@ -62,7 +62,6 @@ public class InfluenzaHome extends HttpServlet {
 		out.print("<option>H1N1</option>");
 		out.print("<option>H3N2</option>");
 		out.print("</select>");
-		out.print("<button>Submit</button><br>");
 		out.print("<br>");
 		out.print("</form>");
 		out.print("<br>");
@@ -121,6 +120,10 @@ public class InfluenzaHome extends HttpServlet {
 		out.print("<option value=\"WY\">Wyoming</option>");
 		out.print("</select>");
 		out.print("<button>Submit</button><br>");
+		out.print("<textarea cols=\"15\" rows=\"1\" name=\"date\"></textarea><br>");
+		out.print("</select>");
+		out.print("<button>Submit</button><br>");
+		out.print("<br>");
 		out.print("</form>");
 		out.print("<br>");
 		out.print("<form method=\"get\" action=\"http://localhost:8080/Influenza/state-by-subtype\" name=\"state-by-subtype\">Click ");
@@ -130,8 +133,6 @@ public class InfluenzaHome extends HttpServlet {
 		out.print("<option>H3N2</option>");
 		out.print("</select>");
 		out.print("<button>Submit</button><br>");
-		out.print("</form>");
-		out.print("<form method=\"get\" action=\"http://localhost:8080/Influenza/state-by-subtype\" name=\"state-by-subtype\"> ");
 		out.print("<select name=\"state\">");
 		out.print("<option value=\"AL\">Alabama</option>");
 		out.print("<option value=\"AK\">Alaska</option>");
@@ -184,7 +185,6 @@ public class InfluenzaHome extends HttpServlet {
 		out.print("<option value=\"WI\">Wisconsin</option>");
 		out.print("<option value=\"WY\">Wyoming</option>");
 		out.print("</select>");
-		out.print("<button>Submit</button><br>");
 		out.print("</form>");
 		out.print("<br>");
 		out.print("<br>");
