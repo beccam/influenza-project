@@ -1,81 +1,36 @@
-CREATE KEYSPACE influenza WITH replication = \{\
-  'class': 'SimpleStrategy',\
-  'replication_factor': '1'\
-\};\
-\
-USE influenza;\
-\
-CREATE TABLE state_date (\
-  state text,\
-  collection_date timestamp,\
-  strain_id text,\
-  age int,\
-  subtype text,\
-  year int,\
-  PRIMARY KEY (state, collection_date, strain_id)\
-) WITH\
-  bloom_filter_fp_chance=0.010000 AND\
-  caching='KEYS_ONLY' AND\
-  comment='' AND\
-  dclocal_read_repair_chance=0.000000 AND\
-  gc_grace_seconds=864000 AND\
-  index_interval=128 AND\
-  read_repair_chance=0.100000 AND\
-  replicate_on_write='true' AND\
-  populate_io_cache_on_flush='false' AND\
-  default_time_to_live=0 AND\
-  speculative_retry='99.0PERCENTILE' AND\
-  memtable_flush_period_in_ms=0 AND\
-  compaction=\{'class': 'SizeTieredCompactionStrategy'\} AND\
-  compression=\{'sstable_compression': 'LZ4Compressor'\};\
-\
-CREATE TABLE state_subtype (\
-  state text,\
-  subtype text,\
-  strain_id text,\
-  age int,\
-  collection_date timestamp,\
-  year int,\
-  PRIMARY KEY (state, subtype, strain_id)\
-) WITH\
-  bloom_filter_fp_chance=0.010000 AND\
-  caching='KEYS_ONLY' AND\
-  comment='' AND\
-  dclocal_read_repair_chance=0.000000 AND\
-  gc_grace_seconds=864000 AND\
-  index_interval=128 AND\
-  read_repair_chance=0.100000 AND\
-  replicate_on_write='true' AND\
-  populate_io_cache_on_flush='false' AND\
-  default_time_to_live=0 AND\
-  speculative_retry='99.0PERCENTILE' AND\
-  memtable_flush_period_in_ms=0 AND\
-  compaction=\{'class': 'SizeTieredCompactionStrategy'\} AND\
-  compression=\{'sstable_compression': 'LZ4Compressor'\};\
-\
-CREATE TABLE year_subtype (\
-  year int,\
-  subtype text,\
-  strain_id text,\
-  age int,\
-  collection_date timestamp,\
-  state text,\
-  PRIMARY KEY (year, subtype, strain_id)\
-) WITH\
-  bloom_filter_fp_chance=0.010000 AND\
-  caching='KEYS_ONLY' AND\
-  comment='' AND\
-  dclocal_read_repair_chance=0.000000 AND\
-  gc_grace_seconds=864000 AND\
-  index_interval=128 AND\
-  read_repair_chance=0.100000 AND\
-  replicate_on_write='true' AND\
-  populate_io_cache_on_flush='false' AND\
-  default_time_to_live=0 AND\
-  speculative_retry='99.0PERCENTILE' AND\
-  memtable_flush_period_in_ms=0 AND\
-  compaction=\{'class': 'SizeTieredCompactionStrategy'\} AND\
-  compression=\{'sstable_compression': 'LZ4Compressor'\};
-\f1 \
-\
-}
+CREATE KEYSPACE influenza WITH replication = {
+  'class': 'SimpleStrategy',
+  'replication_factor': '1'
+};
+
+USE influenza;
+
+CREATE TABLE state_date (
+  state text,
+  collection_date timestamp,
+  strain_id text,
+  age int,
+  subtype text,
+  year int,
+  PRIMARY KEY (state, collection_date, strain_id)
+) 
+
+CREATE TABLE state_subtype (
+  state text,
+  subtype text,
+  strain_id text,
+  age int,
+  collection_date timestamp,
+  year int,
+  PRIMARY KEY (state, subtype, strain_id)
+) 
+
+CREATE TABLE year_subtype (
+  year int,
+  subtype text,
+  strain_id text,
+  age int,
+  collection_date timestamp,
+  state text,
+  PRIMARY KEY (year, subtype, strain_id)
+)
