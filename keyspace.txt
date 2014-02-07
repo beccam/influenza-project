@@ -13,7 +13,7 @@ CREATE TABLE state_date (
   subtype text,
   year int,
   PRIMARY KEY (state, collection_date, strain_id)
-) 
+);
 
 CREATE TABLE state_subtype (
   state text,
@@ -23,7 +23,7 @@ CREATE TABLE state_subtype (
   collection_date timestamp,
   year int,
   PRIMARY KEY (state, subtype, strain_id)
-) 
+);
 
 CREATE TABLE year_subtype (
   year int,
@@ -33,4 +33,4 @@ CREATE TABLE year_subtype (
   collection_date timestamp,
   state text,
   PRIMARY KEY (year, subtype, strain_id)
-)
+);
