@@ -46,12 +46,44 @@ public class InfluenzaStatebySubtype extends HttpServlet {
 		String state = request.getParameter("state");
 		out.write("State " + state);}
 		
-		String queryText = "SELECT date, strain_id FROM influenza.state_subtype WHERE subtype = '" + subtype + "'" + " AND state ='" + state +"'";
+		String queryText = "SELECT collection_date, strain_id FROM influenza.state_subtype WHERE subtype = '" + subtype + "'" + " AND state = '" + state + "'";
 		
 		ResultSet results = session.execute(queryText);
 		
+		out.println("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 "
+				+ "Transitional//EN\">\n" + "<HTML>\n"
+				+ "<head><title>Track a Package</title></head>\n"
+				+ "<body style=\"font:14px arial,sans-serif\">\n");
+		out.println("<p>&nbsp; </p>");
+		out.println("<style type=\"text/css\">");
+		out.println("table.gridtable {");
+		out.println("	font-family: verdana,arial,sans-serif;");
+		out.println("	font-size:11px;");
+		out.println("	color:#333333;");
+		out.println("	border-width: 1px;");
+		out.println("	border-color: #666666;");
+		out.println("	border-collapse: collapse;");
+		out.println("}");
+		out.println("table.gridtable th {");
+		out.println("	border-width: 1px;");
+		out.println("	padding: 8px;");
+		out.println("	border-style: solid;");
+		out.println("	border-color: #666666;");
+		out.println("	background-color: #dedede;");
+		out.println("}");
+		out.println("table.gridtable td {");
+		out.println("	border-width: 1px;");
+		out.println("	padding: 8px;");
+		out.println("	border-style: solid;");
+		out.println("	border-color: #666666;");
+		out.println("	");
+		out.println("	background-color: #ffff00;");
+		out.println("}");
+		out.println("</style>");
+		out.println("<table class=\"gridtable\">");
+		out.println("<tr><th>Collection Date</th><th>Strain ID</th></tr>");
 		for (Row row : results) {		
-			  String date = row.getDate("date").toString();
+			  String date = row.getDate("collection_date").toString();
 			  String strain_id = row.getString("strain_id");
 			  out.println("<tr>");
 			  out.println("<td>" + date + "</td>");
