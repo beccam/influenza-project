@@ -20,36 +20,41 @@ import com.datastax.driver.core.Session;
 @WebServlet("/state-by-subtype")
 public class InfluenzaStatebySubtype extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public InfluenzaStatebySubtype() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public InfluenzaStatebySubtype() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		Cluster cluster = Cluster.builder().addContactPoint("localhost").build();
+		Cluster cluster = Cluster.builder().addContactPoint("localhost")
+				.build();
 
 		Session session = cluster.connect();
-		
+
 		String subtype = request.getParameter("Subtype");
 		PrintWriter out = response.getWriter();
 		out.write("Subtype " + subtype);
-		
-		if ("state" != null) {
+
 		String state = request.getParameter("state");
-		out.write("State " + state);}
-		
-		String queryText = "SELECT collection_date, strain_id FROM influenza.state_subtype WHERE subtype = '" + subtype + "'" + " AND state = '" + state + "'";
-		
+		if ("state" != null) {
+			out.write("State " + state);
+		}
+
+		String queryText = "SELECT collection_date, strain_id FROM influenza.state_subtype WHERE subtype = '"
+				+ subtype + "'" + " AND state = '" + state + "'";
+
 		ResultSet results = session.execute(queryText);
-		
+
 		out.println("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 "
 				+ "Transitional//EN\">\n" + "<HTML>\n"
 				+ "<head><title>Track a Package</title></head>\n"
@@ -82,14 +87,14 @@ public class InfluenzaStatebySubtype extends HttpServlet {
 		out.println("</style>");
 		out.println("<table class=\"gridtable\">");
 		out.println("<tr><th>Collection Date</th><th>Strain ID</th></tr>");
-		for (Row row : results) {		
-			  String date = row.getDate("collection_date").toString();
-			  String strain_id = row.getString("strain_id");
-			  out.println("<tr>");
-			  out.println("<td>" + date + "</td>");
-			  out.println("<td>" + strain_id + "</td>");
-			  out.println("</tr>");
-			}
+		for (Row row : results) {
+			String date = row.getDate("collection_date").toString();
+			String strain_id = row.getString("strain_id");
+			out.println("<tr>");
+			out.println("<td>" + date + "</td>");
+			out.println("<td>" + strain_id + "</td>");
+			out.println("</tr>");
+		}
 	}
 
 }
