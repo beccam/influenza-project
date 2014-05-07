@@ -36,18 +36,18 @@ public class InfluenzaStatebySubtype extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		Cluster cluster = Cluster.builder().addContactPoint("localhost")
+		Cluster cluster = Cluster.builder().addContactPoint("192.168.56.101")
 				.build();
 
 		Session session = cluster.connect();
 
 		String subtype = request.getParameter("Subtype");
 		PrintWriter out = response.getWriter();
-		out.write("Subtype " + subtype);
+	//	out.write("Subtype " + subtype);
 
 		String state = request.getParameter("state");
 		if ("state" != null) {
-			out.write("State " + state);
+	//		out.write("State " + state);
 		}
 
 		String queryText = "SELECT collection_date, strain_id FROM influenza.state_subtype WHERE subtype = '"

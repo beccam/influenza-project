@@ -44,6 +44,10 @@ public class InfluenzaHome extends HttpServlet {
 		out.print("action=\"http://localhost:8080/Influenza/strain-by-year\"");
 		out.print("name=\"strain-by-year\">Click ");
 		out.print("for Strain by Year");
+		out.print("<select name=\"Subtype\">");
+		out.print("<option>H1N1</option>");
+		out.print("<option>H3N2</option>");
+		out.print("</select>");
 		out.print("<select name=\"strain-year\">");
 		out.print("<option>2007</option>");
 		out.print("<option>2008</option>");
@@ -54,14 +58,7 @@ public class InfluenzaHome extends HttpServlet {
 		out.print("</select>");
 		out.print("<button>Submit</button><br>");
 		out.print("<br>");
-		out.print("</form>");
-		out.print("<form method=\"get\"");
-		out.print("action=\"http://localhost:8080/Influenza/strain-by-year\"");
-		out.print("name=\"strain-by-year\"> ");
-		out.print("<select name=\"Subtype\">");
-		out.print("<option>H1N1</option>");
-		out.print("<option>H3N2</option>");
-		out.print("</select>");
+
 		out.print("<br>");
 		out.print("</form>");
 		out.print("<br>");

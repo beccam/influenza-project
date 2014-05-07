@@ -36,7 +36,7 @@ public class InfluenzaStatebyDate extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		Cluster cluster = Cluster.builder().addContactPoint("127.0.0.1")
+		Cluster cluster = Cluster.builder().addContactPoint("192.168.56.101")
 				.build();
 
 		Session session = cluster.connect();

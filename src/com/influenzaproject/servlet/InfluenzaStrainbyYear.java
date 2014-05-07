@@ -34,18 +34,18 @@ public class InfluenzaStrainbyYear extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		Cluster cluster = Cluster.builder().addContactPoint("localhost").build();
+		Cluster cluster = Cluster.builder().addContactPoint("192.168.56.101").build();
 
 		Session session = cluster.connect();
 		
 		String strainYear = request.getParameter("strain-year");
 		PrintWriter out = response.getWriter();
-		out.write("Strain year " + strainYear);
+	//	out.write("Strain year " + strainYear);
 		
 		String subtype = request.getParameter("Subtype");
-		out.write("Subtype " + subtype);
+	//	out.write("Subtype " + subtype);
 		
-        String queryText = "SELECT collection_date, state FROM influenza.year_subtype WHERE year = '" + strainYear + "'" + " AND subtype ='" + subtype +"'";
+        String queryText = "SELECT collection_date, state FROM influenza.year_subtype WHERE year = " + strainYear + "" + " AND subtype ='" + subtype +"'";
 		
 		ResultSet results = session.execute(queryText);
 		
