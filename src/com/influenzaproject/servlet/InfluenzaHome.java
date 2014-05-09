@@ -21,7 +21,7 @@ public class InfluenzaHome extends HttpServlet {
 	 */
 	public InfluenzaHome() {
 		super();
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	/**

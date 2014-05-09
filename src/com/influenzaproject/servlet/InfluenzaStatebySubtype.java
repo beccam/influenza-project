@@ -9,7 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.datastax.driver.core.BoundStatement;
 import com.datastax.driver.core.Cluster;
+import com.datastax.driver.core.PreparedStatement;
 import com.datastax.driver.core.ResultSet;
 import com.datastax.driver.core.Row;
 import com.datastax.driver.core.Session;
@@ -26,7 +28,7 @@ public class InfluenzaStatebySubtype extends HttpServlet {
 	 */
 	public InfluenzaStatebySubtype() {
 		super();
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	/**
@@ -35,25 +37,32 @@ public class InfluenzaStatebySubtype extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		
+		//Connect to your cluster using the ip address on your instance
 		Cluster cluster = Cluster.builder().addContactPoint("192.168.56.101")
 				.build();
 
 		Session session = cluster.connect();
-
-		String subtype = request.getParameter("Subtype");
+		
 		PrintWriter out = response.getWriter();
-	//	out.write("Subtype " + subtype);
 
-		String state = request.getParameter("state");
-		if ("state" != null) {
-	//		out.write("State " + state);
-		}
+		// Create the CQL query/command you want to use as a prepared statement
+		PreparedStatement statement_state_subtype = session.prepare(
 
-		String queryText = "SELECT collection_date, strain_id FROM influenza.state_subtype WHERE subtype = '"
-				+ subtype + "'" + " AND state = '" + state + "'";
+		"SELECT collection_date, strain_id FROM influenza.state_subtype"
+		+ " WHERE subtype = ?"
+		+ "AND state = ?;");
 
-		ResultSet results = session.execute(queryText);
+		 // Create a bound statement object
+		 BoundStatement boundStatement_state_subtype = new BoundStatement(
+							statement_state_subtype);
+
+		//bind the given parameters to the bound statement
+		boundStatement_state_subtype.bind(request.getParameter("Subtype"),request.getParameter("state"));
+
+		//Execute the bound statement within the session
+		ResultSet results = session.execute(boundStatement_state_subtype); 
+
 
 		out.println("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 "
 				+ "Transitional//EN\">\n" + "<HTML>\n"
@@ -95,6 +104,10 @@ public class InfluenzaStatebySubtype extends HttpServlet {
 			out.println("<td>" + strain_id + "</td>");
 			out.println("</tr>");
 		}
+		out.println("</table>");
+		out.println("</body></html>");
+		
+		cluster.close();
 	}
 
 }

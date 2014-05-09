@@ -26,24 +26,25 @@ public class InfluenzaStrainbyYear extends HttpServlet {
      */
     public InfluenzaStrainbyYear() {
         super();
-        // TODO Auto-generated constructor stub
+     
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		
+		//Connect to your cluster using the ip address on your instance
 		Cluster cluster = Cluster.builder().addContactPoint("192.168.56.101").build();
 
 		Session session = cluster.connect();
 		
 		String strainYear = request.getParameter("strain-year");
 		PrintWriter out = response.getWriter();
-	//	out.write("Strain year " + strainYear);
+
 		
 		String subtype = request.getParameter("Subtype");
-	//	out.write("Subtype " + subtype);
+
 		
         String queryText = "SELECT collection_date, state FROM influenza.year_subtype WHERE year = " + strainYear + "" + " AND subtype ='" + subtype +"'";
 		
@@ -89,6 +90,10 @@ public class InfluenzaStrainbyYear extends HttpServlet {
 			  out.println("<td>" + state + "</td>");
 			  out.println("</tr>");
 			}
-	}
-
+		out.println("</table>");
+		out.println("</body></html>");
+		
+		cluster.close();
+	} 
+	
 }

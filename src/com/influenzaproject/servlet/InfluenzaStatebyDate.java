@@ -9,7 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
 import com.datastax.driver.core.Cluster;
+
 import com.datastax.driver.core.ResultSet;
 import com.datastax.driver.core.Row;
 import com.datastax.driver.core.Session;
@@ -26,7 +28,7 @@ public class InfluenzaStatebyDate extends HttpServlet {
 	 */
 	public InfluenzaStatebyDate() {
 		super();
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	/**
@@ -35,23 +37,26 @@ public class InfluenzaStatebyDate extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		
+	    //Connect to your cluster using the ip address on your instance
 		Cluster cluster = Cluster.builder().addContactPoint("192.168.56.101")
 				.build();
 
 		Session session = cluster.connect();
+		
 
 		String state = request.getParameter("state");
 		PrintWriter out = response.getWriter();
-		// out.write("State " + state);
+	
 
-		String Date = request.getParameter("date");
-		// out.write("date " + Date);
+		String date = request.getParameter("date");
+	
 
 		String queryText = "SELECT subtype,strain_id FROM influenza.state_date WHERE state = '"
-				+ state + "'" + " AND collection_date ='" + Date + "'";
+				+ state + "'" + " AND collection_date = '" + date + "'";
 
 		ResultSet results = session.execute(queryText);
+
 
 		out.println("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 "
 				+ "Transitional//EN\">\n" + "<HTML>\n"
@@ -95,6 +100,8 @@ public class InfluenzaStatebyDate extends HttpServlet {
 		}
 		out.println("</table>");
 		out.println("</body></html>");
+		
+		cluster.close();
 	}
 
 }
